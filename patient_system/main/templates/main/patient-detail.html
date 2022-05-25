@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<h2>Patient</h2>
+<p>Name: {{ patient.name }}</p>
+<p>Email: {{ patient.email }}</p>
+<p>Biography: {{ patient.biography }}</p>
+<p>Active: {{ patient.active }}</p>
+<a href="{% url 'add-to-my-patients' pk=patient.id %}" methods="post">
+  <p><button id="add-to-my-patients-btn" type="submit">Add to My Patients</button></p>
+</a>
+
+<h3>Create Record</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.details.label}}:<br> {{ form.details }}
+  <button type="submit">Create</button>
+</form>
+{% for record in record_list %}
+<p><b>Patient</b>: {{ record.patient.name }}, <b>Doctor</b>: {{ record.doctor.first_name }} {{ record.doctor.last_name }}<br><b>Details</b>: {{ record.details }}({{ record.time }})</p>
+{% endfor %}
+{% endblock %}

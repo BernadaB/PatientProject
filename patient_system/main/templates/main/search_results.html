@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Search Patients on: {{ query }}</h2>
+<form method="get" action="{% url 'search-results' %}">
+    <input name="q" placeholder="Search patient..." type="text">
+    <button type="submit">Search</button>
+</form>
+{% for patient in object_list %}
+<p><a href="{% url 'patient-detail' patient.id %}">{{ patient.name }}</a></p>
+{% empty %}
+<p>No results.</p>
+{% endfor %}
+{% endblock %}
